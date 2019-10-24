@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.sns_project.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -49,7 +50,7 @@ public class PasswordResetActivity extends BasicActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             loaderLayout.setVisibility(View.GONE);
                             if (task.isSuccessful()) {
-                                showToast(PasswordResetActivity.this, "이메일을 보냈습니다.");
+                                Toast.makeText(PasswordResetActivity.this, "이메일을 보냈습니다.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

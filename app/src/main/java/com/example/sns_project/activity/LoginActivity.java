@@ -1,11 +1,15 @@
 package com.example.sns_project.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.sns_project.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -16,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import static com.example.sns_project.Util.showToast;
 
+//메인액티비티가 실행되고 만약 로그인이 안되있는걸로 인식되면 여기로 넘어옵니다.
 public class LoginActivity extends BasicActivity {
     private FirebaseAuth mAuth;
 
@@ -44,6 +49,34 @@ public class LoginActivity extends BasicActivity {
             }
         }
     };
+    private void withdrawal() {
+        {
+            AlertDialog.Builder alert_confirm = new AlertDialog.Builder(LoginActivity.this);
+            alert_confirm.setMessage("정말 계정을 삭제 할까요?").setCancelable(false).setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    user.delete()
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(LoginActivity.this, "계정이 삭제 되었습니다.", Toast.LENGTH_LONG).show();
+                                    finish();
+                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                }
+                            });
+                        }
+                    }
+            );
+        }
+    }
+
+    //로그아웃함수 호출시 로그아웃후 LoginActivity로 이동
+    private void logout(){
+        mAuth.signOut();
+        finish();
+        startActivity(new Intent(this,LoginActivity.class));
+    }
 
     private void login() {
         String email = ((EditText) findViewById(R.id.emailEditText)).getText().toString();

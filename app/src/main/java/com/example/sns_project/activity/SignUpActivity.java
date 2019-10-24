@@ -68,7 +68,7 @@ public class SignUpActivity extends BasicActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 loaderLayout.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
-                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    //FirebaseUser user = mAuth.getCurrentUser();
                                     showToast(SignUpActivity.this, "회원가입에 성공하였습니다.");
                                     myStartActivity(MainActivity.class);
                                 } else {

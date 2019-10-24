@@ -155,6 +155,7 @@ public class MemberInitActivity extends BasicActivity {
         }
     }
 
+    //user변수는 FirebaseAuth.getInstance().getCurrentUser() 이 담겨있다. 밑에 user.getUiddp
     private void storeUploader(UserInfo userInfo) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("users").document(user.getUid()).set(userInfo)

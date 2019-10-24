@@ -13,7 +13,6 @@ import com.example.sns_project.fragment.UserInfoFragment;
 import com.example.sns_project.fragment.UserListFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -53,10 +52,11 @@ public class MainActivity extends BasicActivity {
         }
     }
 
+    //액티비티 키면 먼저 onCreate나오고 다음에  init   여기서 로그인 됬는지 확인할꺼임
     private void init(){
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseUser == null) {
-            myStartActivity(SignUpActivity.class);
+            myStartActivity(SignUpActivity.class);                                  //유저가 없다면
         } else {
             DocumentReference documentReference = FirebaseFirestore.getInstance().collection("users").document(firebaseUser.getUid());
             documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
